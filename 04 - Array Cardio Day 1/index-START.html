@@ -39,28 +39,72 @@
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
 
+    // Filter through each OBJECT (inventor) in the array
+    const filterInventors = inventors.filter((inventor) => {return inventor.year >=1500 && inventor.year <= 1600});
+    console.table(filterInventors);
+
     // Array.prototype.map()
     // 2. Give us an array of the inventors first and last names
+    const mapfirstLast = inventors.map((inventor) => `${inventor.first} ${inventor.last}`);
+    console.table(mapfirstLast);
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
+    const sortBirthdate = inventors.sort((a, b) => a.year > b.year ? 1 : -1);
+    console.table(sortBirthdate);
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live all together?
 
+    // need 0 for initializing total
+    const reduceYearsLived = inventors.reduce((total, currentPerson) => total + (currentPerson.passed - currentPerson.year), 0);
+    console.table(reduceYearsLived);
+
     // 5. Sort the inventors by years lived
+    const sortYearsLived = inventors.sort((a, b) => (a.passed - a.year) > (b.passed - b.year) ? 1 : -1);
+    console.table(sortYearsLived);
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
 
+    // done in console on webpage
+
+    // (need to make NodeList into array in order to use .map) 
+    // const getBou = Array.from(document.querySelectorAll(".mw-category a"));
+
+    // (`bou => bou.textContent` is used to return just the textContent of each link, and then that new array with just the textContent is used to filter each street)
+    // const de = getBou.map(link => link.textContent).filter(street => street.includes('de'));
+
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    // const sortLastName = people.sort();
+    // console.table(sortLastName);
+
+    // Or if you want to do the extra work lawl
+    const sortLastName = people.sort((aLast, bLast) => {
+      aLast = aLast.split(', ');
+      bLast = bLast.split(', ');
+
+      return aLast > bLast ? 1 : -1;
+    });
+    console.table(sortLastName);
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
 
+    // first argument of reduce doesn't have to be accumulator, can be whatever you initialize it to
+    // in this case, it is initialized to an empty object
+    const reduceData = data.reduce((vehicles, currVehicle) => {
+      if (!vehicles[currVehicle]) {
+        vehicles[currVehicle] = 0;
+      }
+      vehicles[currVehicle]++;
+      return vehicles;
+    }, {});
+
+    console.table(reduceData)
   </script>
 </body>
 </html>
